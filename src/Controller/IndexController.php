@@ -13,17 +13,26 @@ class IndexController extends AbstractController
     #[Route('/', name: 'index.home')]
     public function home(): Response
     {
-        return new Response(content: '<h2>Hello World!</h2>');
+        return $this->render(view: 'index/home.html.twig');
     }
     #[Route('/about', name: 'index.about')]
     public function about(): Response
     {
-        return new Response(content: '<h2>About page</h2>');
+        return $this->render(view: 'index/about.html.twig');
     }
     #[Route('/hello/{firstName}', name: 'index.hello', methods: ['GET'])]
     public function hello(string $firstName = 'anonymous'): Response
     {
-        return new Response(content: '<h2>Hello, '.$firstName.'!</h2>');
+        $favGames = [
+            'CS:GO',
+            'WoW',
+            'HoMM3'
+        ];
+        return $this->render(view: 'index/hello.html.twig',
+            parameters: [
+                'firstname' => $firstName,
+                'favGames' => $favGames
+            ]);
     }
 
     #[Route('/top', name: 'index.top')]
