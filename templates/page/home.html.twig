@@ -1,0 +1,45 @@
+{%  extends 'base.html.twig' %}
+
+{%  block title %}
+{{ data.title }}
+{% endblock %}
+
+{% block body %}
+    <p>Aktualny czas: {{ data.date|date('Y-m-d H:i:s') }}</p>
+
+    <br />
+    <h3>Wiadomości w skrzynce:</h3>
+    <ul>
+    {%  for message in data.messages %}
+        <li>
+            {{ message.id }}: {{ message.text }} (autor: {{ message.author }})
+        </li>
+    {% endfor %}
+    </ul>
+
+    <br />
+    <h3>Numery lotto</h3>
+    <p>{{ data.numbers|join(', ') }}</p>
+
+    <br />
+    <h3>Pogoda</h3>
+    <p>Temperatura {{ data.weather.temperature }} stopni, {{ data.weather.condition }}</p>
+
+
+    <h3>Użytkownik {% if not data.isPremiumUser %}nie {% endif %}jest użytkownikiem premium.</h3>
+    <br />
+    <h3>Dane użytkownika:</h3>
+    <p>
+        {{ data.user.name }} ({{ data.user.email }})
+    </p>
+
+    <p>Strona została wyświelona {{ data.pageViews }} razy.</p>
+
+    <br />
+    <h3>Popularne tagi</h3>
+    <p>{{ data.popularTags|join(', ') }}</p>
+
+    <br />
+    <h3>Ocena strony: {{ data.rating|number_format(1, ',', ' ') }}</h3>
+
+{%  endblock %}
