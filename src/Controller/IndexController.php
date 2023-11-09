@@ -45,4 +45,16 @@ class IndexController extends AbstractController
         return new JsonResponse(data: $topGames);
     }
 
+    #[Route('/topgame', name: 'index.topgame')]
+    public function topGame()
+    {
+        $topGames = [
+            'CS:GO',
+            'WoW',
+            'WoW2',
+            'GTA'
+        ];
+        return $this->render(view: 'topgame.html.twig',parameters: ['topGames' => $topGames]);
+    }
+
 }
