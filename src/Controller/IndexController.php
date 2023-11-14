@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Service\CodeGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,15 @@ class IndexController extends AbstractController
     {
         return $this->render(view: 'index/about.html.twig');
     }
+
+    #[Route('/code', name: 'index.code')]
+    public function code(CodeGenerator $codeGenerator): Response
+    {
+        $code = $codeGenerator->generate();
+
+        return $this->render(view: 'index/code.html.twig', parameters: ['code' => $code]);
+    }
+
     #[Route('/hello/{firstName}', name: 'index.hello', methods: ['GET'])]
     public function hello(string $firstName = 'anonymous'): Response
     {
@@ -36,7 +46,7 @@ class IndexController extends AbstractController
     }
 
     #[Route('/top', name: 'index.top')]
-    public function top()
+    public function top(): Response
     {
         $topGames = [
             'CS:GO',
@@ -46,7 +56,7 @@ class IndexController extends AbstractController
     }
 
     #[Route('/topgame', name: 'index.topgame')]
-    public function topGame()
+    public function topGame(): Response
     {
         $topGames = [
             'CS:GO',
@@ -54,7 +64,7 @@ class IndexController extends AbstractController
             'WoW2',
             'GTA'
         ];
-        return $this->render(view: 'topgame.html.twig',parameters: ['topGames' => $topGames]);
+        return $this->render(view: 'index/topgame.html.twig',parameters: ['topGames' => $topGames]);
     }
 
 }
