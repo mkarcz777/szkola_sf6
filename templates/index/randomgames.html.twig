@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2>Here are some random games of yours:</h2>
+    <ul>
+        {% for game in randomGames %}
+        <li>{{ game }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block title %}
+Homework no. 4 - random elements of array
+{% endblock %}
+

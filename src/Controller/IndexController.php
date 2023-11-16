@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Service\ArrayRandomizer;
 use App\Service\CodeGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -65,6 +66,27 @@ class IndexController extends AbstractController
             'GTA'
         ];
         return $this->render(view: 'index/topgame.html.twig',parameters: ['topGames' => $topGames]);
+    }
+
+    #[Route('/randomgames', name: 'index.randomgames')]
+    public function randomGames(ArrayRandomizer $arrayRandomizer): Response
+    {
+        $topGames = [
+            'CS:GO',
+            'WoW',
+            'WoW2',
+            'GTA',
+            'HoMM3',
+            'Minecraft',
+            'FIFA 23',
+            'Unreal Tournament',
+            'The Witcher',
+            'Baldurs Gate',
+        ];
+
+        $randomGames = $arrayRandomizer->getRandomElements($topGames, 5);
+
+        return $this->render(view: 'index/randomgames.html.twig',parameters: ['randomGames' => $randomGames]);
     }
 
 }
