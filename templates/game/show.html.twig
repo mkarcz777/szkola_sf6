@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ game.name }}</h3>
+            </div>
+            <div class="panel-body">
+                <p>Release date: {{ game.releaseDate|date('d-m-y') }}</p>
+                <p>Score: <b>{{ game.score }}/10</b></p>
+                <p>Category: <b>{{ game.category.name }}</b></p>
+                <h2>Description:</h2>
+                <p>
+                    {{ game.description }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
