@@ -16,8 +16,9 @@ class GameController extends AbstractController
     public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
 
-        $game = new Game();
-        $form = $this->createForm(GameType::class, $game);
+//        $game = new Game();
+//        $form = $this->createForm(GameType::class, $game);
+        $form = $this->createForm(GameType::class); // p. GameType::configureOptions - domyslna klasa formularza
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
