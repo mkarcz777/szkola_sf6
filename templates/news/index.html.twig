@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homework no. 5!{% endblock %}
+
+{% block body %}
+    <h1>Some Great News</h1>
+
+    <div id="newslist">
+        <div class="row">
+            {% for new in news %}
+                <div class="col-12 col-md-4">
+                    <h2>{{ new.title }}</h2>
+                    <p>{{ new.content }}</p>
+                    <span>Added: {{ new.dateAdd|date }}</span>
+                    {% if(new.dateModified) %}
+                    <span>, updated: {{ new.dateModified|date }}</span>
+                    {% endif %}
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
