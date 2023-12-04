@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ new.title }}</h1>
+    <p>{{ new.content }}</p>
+    <span>Added {{ new.dateAdd|date }}</span>
+    {% if (new.dateModified) %}
+        <br>
+        <span>Updated {{ new.dateModified|date }}</span>
+    {% endif %}
+
+{% endblock %}
+
+{% block title %}
+{{ new.title }}
+{% endblock %}
+
