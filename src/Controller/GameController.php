@@ -16,6 +16,13 @@ class GameController extends AbstractController
     public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
 
+        $this->denyAccessUnlessGranted('ROLE_ADD'); //wazna funkcja, pozwala zaoszczedzic czas zamiast pisania
+        // bezusytecznego kodu typu if (!user->hasAccess then ...)
+
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // tylko dla admina; drugi sposob to konfiguracja
+        // tego w security.yaml, sekcja access_control
+
 //        $game = new Game();
 //        $form = $this->createForm(GameType::class, $game);
         $form = $this->createForm(GameType::class); // p. GameType::configureOptions - domyslna klasa formularza
@@ -41,6 +48,8 @@ class GameController extends AbstractController
     public function edit(Game $game, EntityManagerInterface $entityManager, Request $request): Response
     {
 
+        $this->denyAccessUnlessGranted('ROLE_EDIT');
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(GameType::class, $game);
 
         $form->handleRequest($request);
@@ -63,12 +72,16 @@ class GameController extends AbstractController
     #[Route('/game/{id}', name: 'app_game_show')]
     public function show(Game $game): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         return $this->render('game/show.html.twig', ['game' => $game]);
     }
 
     #[Route('/games', name: 'app_game_list')]
     public function list(EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+
         $games = $entityManager->getRepository(Game::class)->findAll();
 
         return $this->render('game/list.html.twig', ['games'=> $games]);
