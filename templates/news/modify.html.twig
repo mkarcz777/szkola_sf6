@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modify news
+{% endblock %}
+
+{% block body %}
+    <h1>Modify news entitled "{{ new.title }}"</h1>
+    {{ form(form) }}
+{% endblock %}

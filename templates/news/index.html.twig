@@ -8,16 +8,31 @@
     <div id="newslist">
         <div class="row">
             {% for new in news %}
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 onenews">
                     <h2>{{ new.title }}</h2>
                     <p>{{ new.content }}</p>
                     <span>Added: {{ new.dateAdd|date }}</span>
                     {% if(new.dateModified) %}
                     <span>, updated: {{ new.dateModified|date }}</span>
                     {% endif %}
+                    <br>
+                    <ul>
+                        <li>
+                            <a href="{{ path('app_news_show', { 'id' : new.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_news_modify', { 'id' : new.id }) }}">edit</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_news_delete', { 'id' : new.id }) }}">delete</a>
+                        </li>
+                    </ul>
                 </div>
 
             {% endfor %}
         </div>
+    </div>
+    <div>
+        <a href="{{ path('app_news_add') }}">Add news!</a>
     </div>
 {% endblock %}

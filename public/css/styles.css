@@ -76,6 +76,12 @@ main p {
     border-radius: 5px;
 }
 
+.onenews {
+    border: 1px solid #333;
+    padding: 3px;
+    margin:2px;
+}
+
 /* Style dla stopki */
 footer {
     background-color: #333;
