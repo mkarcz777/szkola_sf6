@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 
+use App\Message\SendKey;
 use App\Service\ArrayRandomizer;
 use App\Service\CodeGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
@@ -29,6 +31,14 @@ class IndexController extends AbstractController
         $code = $codeGenerator->generate();
 
         return $this->render(view: 'index/code.html.twig', parameters: ['code' => $code]);
+    }
+
+    #[Route('/sendcode', name: 'index.sendcode')]
+    public function sendCode(MessageBusInterface $bus): JsonResponse
+    {
+        $bus->dispatch(new SendKey('player@asphp.pl'));
+
+        return new JsonResponse(['status' => 'Email sent']);
     }
 
     #[Route('/hello/{firstName}', name: 'index.hello', methods: ['GET'])]
