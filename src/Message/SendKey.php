@@ -4,12 +4,12 @@ namespace App\Message;
 class SendKey
 {
     public function __construct(
-        private string $email,
+        private string $userId,
     ) {
     }
 
-    public function getEmail(): string
+    public function getUserId(): string
     {
-        return $this->email;
+        return $this->userId;
     }
 }

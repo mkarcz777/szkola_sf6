@@ -36,7 +36,8 @@ class IndexController extends AbstractController
     #[Route('/sendcode', name: 'index.sendcode')]
     public function sendCode(MessageBusInterface $bus): JsonResponse
     {
-        $bus->dispatch(new SendKey('player@asphp.pl'));
+        //$bus->dispatch(new SendKey('player@asphp.pl'));
+        $bus->dispatch(new SendKey(2));
 
         return new JsonResponse(['status' => 'Email sent']);
     }

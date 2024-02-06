@@ -2,15 +2,30 @@
 namespace App\MessageHandler;
 
 use App\Message\SendKey;
+use App\Repository\UserRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Messenger\Exception\RecoverableMessageHandlingException;
 
 #[AsMessageHandler]
 class SendKeyHandler
 {
+    public function __construct(
+        private UserRepository $userRepository
+    )
+    {
+    }
+
     public function __invoke(SendKey $message)
     {
+        throw new RecoverableMessageHandlingException('test');
+
+        $user = $this->userRepository->find($message->getUserId());
+
+        if (!$user) {
+            return;
+        }
         // ... do some work - like sending an SMS message!
-        $this->sendEmail($message->getEmail(), $this->getKey());
+        $this->sendEmail($user->getEmail(), $this->getKey());
     }
 
     //ponizsze 2 metody powinny byc w zewn. projekcie z serwisami; umieszczamy je tutaj zeby nie komplikowac przykladu :)
